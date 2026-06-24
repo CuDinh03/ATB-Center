@@ -74,6 +74,9 @@ section{position:relative}
 .hdr.scrolled{box-shadow:0 6px 24px -12px rgba(15,48,87,.25);border-bottom-color:var(--line)}
 .hdr .wrap{display:flex;align-items:center;gap:24px;height:var(--hdr)}
 .logo{display:flex;align-items:center;gap:11px;flex-shrink:0}
+.logo-img{height:48px;width:auto;display:block}
+.foot-logo{display:inline-block;background:#fff;padding:10px 14px;border-radius:14px}
+.foot-logo .logo-img{height:42px}
 .logo .mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,var(--navy-700),var(--blue-500));
   display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-sm)}
 .logo .mark svg{width:24px;height:24px}
@@ -110,11 +113,12 @@ section{position:relative}
 
 /* ===================== HERO ===================== */
 .hero{background:
-   radial-gradient(900px 480px at 88% -10%,rgba(244,183,64,.22),transparent 58%),
-   radial-gradient(800px 600px at 0% 120%,rgba(37,99,168,.30),transparent 55%),
-   linear-gradient(155deg,var(--navy-900),var(--navy-800) 58%,var(--navy-700));
+   radial-gradient(900px 480px at 88% -10%,rgba(244,183,64,.18),transparent 58%),
+   linear-gradient(150deg,rgba(11,34,57,.93),rgba(15,48,87,.85) 55%,rgba(20,60,110,.78)),
+   url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/pexels-federico-orlandi-2871654-scaled.jpg') center 30%/cover no-repeat,
+   var(--navy-900);
   color:#fff;position:relative;overflow:hidden}
-.hero .gate{position:absolute;right:0;bottom:0;width:min(46%,640px);opacity:.16;pointer-events:none}
+.hero .gate{display:none}
 .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:72px 24px 84px}
 .hero h1{color:#fff;font-size:clamp(32px,4.8vw,56px);letter-spacing:-.025em}
 .hero h1 .hl{color:var(--gold-400)}
@@ -357,9 +361,9 @@ section{position:relative}
 <!-- ============ UTILITY BAR ============ -->
 <div class="ubar">
   <div class="wrap">
-    <a href="https://maps.google.com/?q=Số 83 Ngõ 2 Phương Mai Đống Đa Hà Nội" target="_blank" rel="noopener">
+    <a href="https://maps.google.com/?q=S%E1%BB%91%2067,%20Ng%C3%B5%2025%20B%C3%B9i%20Huy%20B%C3%ADch,%20Ho%C3%A0ng%20Mai,%20H%C3%A0%20N%E1%BB%99i" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-      Số 83, Ngõ 2 Phương Mai, Đống Đa, Hà Nội</a>
+      Số 67, Ngõ 25 Bùi Huy Bích, Hoàng Mai, Hà Nội</a>
     <div class="right">
       <a href="mailto:atb.vietnam2018@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> atb.vietnam2018@gmail.com</a>
       <a href="tel:0974904071"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> 0974 904 071</a>
@@ -370,25 +374,24 @@ section{position:relative}
 <!-- ============ HEADER ============ -->
 <header class="hdr" id="hdr">
   <div class="wrap">
-    <a href="#" class="logo" aria-label="ATB Việt Nam">
-      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 3 2 8.5 12 14l10-5.5L12 3Z"/><path d="M5 11v5c0 1 3.5 3 7 3s7-2 7-3v-5"/></svg></span>
-      <span class="name">ATB Việt Nam<small>DU HỌC NGHỀ ĐỨC</small></span>
+    <a href="index.html" class="logo" aria-label="ATB Việt Nam — Trang chủ">
+      <img class="logo-img" src="https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/Capture-1-Copy.png" alt="ATB Việt Nam — Du học nghề Đức">
     </a>
     <nav class="nav">
-      <a href="#" class="active">Trang chủ</a>
-      <a href="#about">Giới thiệu</a>
-      <a href="#dinhcu">Định cư Đức</a>
+      <a href="index.html" class="active">Trang chủ</a>
+      <a href="gioi-thieu.html">Giới thiệu</a>
+      <a href="dinh-cu-duc.html">Định cư Đức</a>
       <div class="has">
-        <a href="#nganh">Du học nghề CHLB Đức <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
+        <a href="du-hoc-nghe.html">Du học nghề CHLB Đức <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></a>
         <div class="dd">
-          <a href="#nganh"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 21v-4M17 21v-4"/></svg></span> Nhà hàng – Khách sạn</a>
-          <a href="#nganh"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span> Điều dưỡng</a>
-          <a href="#nganh"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.4-2.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5L5 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5L19 13a7 7 0 0 0 0-1Z"/></svg></span> Cơ khí – Điện tử</a>
-          <a href="#nganh"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span> Ngành Xây dựng</a>
+          <a href="nganh-nha-hang-khach-san.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 21v-4M17 21v-4"/></svg></span> Nhà hàng – Khách sạn</a>
+          <a href="nganh-dieu-duong.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></span> Điều dưỡng</a>
+          <a href="nganh-co-khi-dien-tu.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.5-2-3.5-2.3 1a7 7 0 0 0-1.7-1l-.4-2.5h-4l-.4 2.5a7 7 0 0 0-1.7 1l-2.3-1-2 3.5L5 11a7 7 0 0 0 0 2l-2 1.5 2 3.5 2.3-1a7 7 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7 7 0 0 0 1.7-1l2.3 1 2-3.5L19 13a7 7 0 0 0 0-1Z"/></svg></span> Cơ khí – Điện tử</a>
+          <a href="nganh-xay-dung.html"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2563A8" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span> Ngành Xây dựng</a>
         </div>
       </div>
-      <a href="#tieng-duc">Đào tạo tiếng Đức</a>
-      <a href="#lienhe">Liên hệ</a>
+      <a href="dao-tao-tieng-duc.html">Đào tạo tiếng Đức</a>
+      <a href="lien-he.html">Liên hệ</a>
     </nav>
     <div class="cta">
       <a href="#dangky" class="btn btn-primary btn-sm">Đăng ký tư vấn</a>
@@ -401,12 +404,12 @@ section{position:relative}
 <div class="drawer" id="drawer">
   <div class="panel">
     <button class="x" id="drawerX" aria-label="Đóng"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-    <a href="#" data-close>Trang chủ</a>
-    <a href="#about" data-close>Giới thiệu</a>
-    <a href="#dinhcu" data-close>Định cư Đức</a>
-    <a href="#nganh" data-close>Du học nghề CHLB Đức</a>
-    <a href="#tieng-duc" data-close>Đào tạo tiếng Đức</a>
-    <a href="#lienhe" data-close>Liên hệ</a>
+    <a href="index.html" data-close>Trang chủ</a>
+    <a href="gioi-thieu.html" data-close>Giới thiệu</a>
+    <a href="dinh-cu-duc.html" data-close>Định cư Đức</a>
+    <a href="du-hoc-nghe.html" data-close>Du học nghề CHLB Đức</a>
+    <a href="dao-tao-tieng-duc.html" data-close>Đào tạo tiếng Đức</a>
+    <a href="lien-he.html" data-close>Liên hệ</a>
     <a href="#dangky" data-close class="btn btn-primary" style="margin-top:18px;text-align:center;justify-content:center">Đăng ký tư vấn miễn phí</a>
   </div>
 </div>
@@ -484,13 +487,7 @@ section{position:relative}
       </ul>
       <a href="#dangky" class="btn btn-ghost" style="margin-top:26px">Tìm hiểu thêm về chúng tôi</a>
     </div>
-    <div class="about-visual reveal">
-      <!-- German flag panel -->
-      <svg class="flag" viewBox="0 0 100 200" preserveAspectRatio="none" aria-hidden="true">
-        <rect x="0" y="0" width="100" height="66.6" fill="#111"/>
-        <rect x="0" y="66.6" width="100" height="66.6" fill="#DD0000"/>
-        <rect x="0" y="133.2" width="100" height="66.8" fill="#FFCE00"/>
-      </svg>
+    <div class="about-visual reveal" style="background-image:linear-gradient(160deg,rgba(11,34,57,.28),rgba(11,34,57,.60)),url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/CHUONG-TRINH-DU-HOC-CHUYEN-DOI-VAN-BANG-TAI-CHLB-DUC-hchuman.jpg');background-size:cover;background-position:center top">
       <div class="badge2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z"/></svg> Văn phòng tại Wuppertal, Đức</div>
       <div class="float"><div class="n">3 + 1</div><div class="l">Trung tâm tại Việt Nam &amp; văn phòng tại Đức</div></div>
     </div>
@@ -614,29 +611,29 @@ section{position:relative}
       <p>Những ngành có nhu cầu cao tại Đức, cơ hội định cư rộng mở.</p>
     </div>
     <div class="grid-4">
-      <a href="#dangky" class="ind-card reveal">
-        <div class="bg" style="background:linear-gradient(150deg,#27406E,#3D6098)"></div><div class="ov"></div>
+      <a href="nganh-nha-hang-khach-san.html" class="ind-card reveal">
+        <div class="bg" style="background:linear-gradient(rgba(11,34,57,.40),rgba(11,34,57,.60)),url('https://www.duhocducatb.edu.vn/wp-content/uploads/2019/10/du-hoc-nghe-dau-bep-1.jpg') center/cover"></div><div class="ov"></div>
         <span class="tag">Đang tuyển</span>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M7 21v-4M17 21v-4"/></svg></div>
         <div class="ct"><h3>Nhà hàng – Khách sạn</h3><p>Đức là điểm đến du lịch hàng đầu thế giới — nhu cầu nhân lực lớn.</p>
         <span class="more">Tìm hiểu ngành <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#dangky" class="ind-card reveal">
-        <div class="bg" style="background:linear-gradient(150deg,#1F6F5C,#2FA37F)"></div><div class="ov"></div>
+      <a href="nganh-dieu-duong.html" class="ind-card reveal">
+        <div class="bg" style="background:linear-gradient(rgba(11,34,57,.40),rgba(11,34,57,.60)),url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/co-hoi-du-hoc-dieu-duong-mien-phi-tai-uc.jpg') center/cover"></div><div class="ov"></div>
         <span class="tag">Đang tuyển</span>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div>
         <div class="ct"><h3>Điều dưỡng</h3><p>Thế giới già hoá dân số — ngành điều dưỡng thiếu hụt nhân lực trầm trọng.</p>
         <span class="more">Tìm hiểu ngành <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#dangky" class="ind-card reveal">
-        <div class="bg" style="background:linear-gradient(150deg,#7A4A12,#C9962B)"></div><div class="ov"></div>
+      <a href="nganh-co-khi-dien-tu.html" class="ind-card reveal">
+        <div class="bg" style="background:linear-gradient(rgba(11,34,57,.40),rgba(11,34,57,.60)),url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/ktvdt-023.jpg') center/cover"></div><div class="ov"></div>
         <span class="tag">Đang tuyển</span>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2-1.5-2-3.4-2.4 1a7.6 7.6 0 0 0-1.7-1l-.3-2.6h-4l-.3 2.6a7.6 7.6 0 0 0-1.7 1l-2.4-1-2 3.4L4.6 11a7.6 7.6 0 0 0 0 2l-2 1.5 2 3.4 2.4-1a7.6 7.6 0 0 0 1.7 1l.3 2.6h4l.3-2.6a7.6 7.6 0 0 0 1.7-1l2.4 1 2-3.4Z"/></svg></div>
         <div class="ct"><h3>Cơ khí – Điện tử</h3><p>Cơ khí Đức là ngành công nghiệp dẫn đầu, cơ hội việc làm bền vững.</p>
         <span class="more">Tìm hiểu ngành <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </a>
-      <a href="#dangky" class="ind-card reveal">
-        <div class="bg" style="background:linear-gradient(150deg,#3A2E66,#5B4B98)"></div><div class="ov"></div>
+      <a href="nganh-xay-dung.html" class="ind-card reveal">
+        <div class="bg" style="background:linear-gradient(rgba(11,34,57,.40),rgba(11,34,57,.60)),url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/Du-hoc-nganh-xay-dung-4.jpg') center/cover"></div><div class="ov"></div>
         <span class="tag">Đang tuyển</span>
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
         <div class="ct"><h3>Xây dựng</h3><p>Nền kiến trúc lâu đời với nhiều công trình tầm cỡ — nhu cầu nhân lực ổn định.</p>
@@ -658,19 +655,19 @@ section{position:relative}
         <svg class="quote" viewBox="0 0 24 24" fill="currentColor"><path d="M10 7H6a2 2 0 0 0-2 2v8h6v-6H7s0-2 3-2V7Zm10 0h-4a2 2 0 0 0-2 2v8h6v-6h-3s0-2 3-2V7Z"/></svg>
         <div class="stars">★★★★★</div>
         <p>Sau khi đến Đức, ATB vẫn tiếp tục giúp tôi hoà nhập với cuộc sống tại Đức, thật tuyệt vời! Tôi đã thực hiện được ước mơ sống tại đất nước có nền văn hoá bậc nhất châu Âu.</p>
-        <div class="who"><span class="av" style="background:#2563A8">MH</span><div><div class="nm">Nguyễn Mạnh Hải</div><div class="rl">Du học sinh tại Đức</div></div></div>
+        <div class="who"><span class="av" style="background:#2563A8 url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/126169060_3931466280218372_8939246685818125329_n.jpg') center/cover"></span><div><div class="nm">Nguyễn Mạnh Hải</div><div class="rl">Du học sinh tại Đức</div></div></div>
       </div>
       <div class="tcard reveal">
         <svg class="quote" viewBox="0 0 24 24" fill="currentColor"><path d="M10 7H6a2 2 0 0 0-2 2v8h6v-6H7s0-2 3-2V7Zm10 0h-4a2 2 0 0 0-2 2v8h6v-6h-3s0-2 3-2V7Z"/></svg>
         <div class="stars">★★★★★</div>
         <p>Du học nghề Đức với ATB Việt Nam giúp tớ tiết kiệm tới 100% học phí! Nếu không có ATB thì em đã không thể sang Đức nhanh chóng và thuận lợi đến thế.</p>
-        <div class="who"><span class="av" style="background:#1F9D6B">TH</span><div><div class="nm">Nguyễn Thanh Hiền</div><div class="rl">Du học sinh tại Đức</div></div></div>
+        <div class="who"><span class="av" style="background:#1F9D6B url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/290917850_812081656843909_8803254903802947357_n.jpg') center/cover"></span><div><div class="nm">Nguyễn Thanh Hiền</div><div class="rl">Du học sinh tại Đức</div></div></div>
       </div>
       <div class="tcard reveal">
         <svg class="quote" viewBox="0 0 24 24" fill="currentColor"><path d="M10 7H6a2 2 0 0 0-2 2v8h6v-6H7s0-2 3-2V7Zm10 0h-4a2 2 0 0 0-2 2v8h6v-6h-3s0-2 3-2V7Z"/></svg>
         <div class="stars">★★★★★</div>
         <p>Để đoàn tụ được với người thương, tôi đã nhờ ATB Việt Nam giúp đỡ và thành công! Tôi bắt đầu cuộc sống mới nơi đất khách không mấy khó khăn.</p>
-        <div class="who"><span class="av" style="background:#C9962B">HA</span><div><div class="nm">Hoàng Anh</div><div class="rl">Định cư tại Đức</div></div></div>
+        <div class="who"><span class="av" style="background:#C9962B url('https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/34305323_2060827233989885_6107472511711051776_n.jpg') center/cover"></span><div><div class="nm">Hoàng Anh</div><div class="rl">Định cư tại Đức</div></div></div>
       </div>
     </div>
   </div>
@@ -746,9 +743,8 @@ section{position:relative}
   <div class="wrap">
     <div class="cols">
       <div class="about">
-        <a href="#" class="logo">
-          <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"><path d="M12 3 2 8.5 12 14l10-5.5L12 3Z"/><path d="M5 11v5c0 1 3.5 3 7 3s7-2 7-3v-5"/></svg></span>
-          <span class="name" style="color:#fff">ATB Việt Nam<small>DU HỌC NGHỀ ĐỨC</small></span>
+        <a href="index.html" class="foot-logo" aria-label="ATB Việt Nam">
+          <img class="logo-img" src="https://www.duhocducatb.edu.vn/wp-content/uploads/2022/08/Capture-1-Copy.png" alt="ATB Việt Nam">
         </a>
         <p>Đơn vị dịch vụ giáo dục &amp; di trú hàng đầu, với 3 trung tâm tại Việt Nam và văn phòng tại Đức. Đồng hành cùng bạn đến khi trở thành công dân Đức.</p>
         <div class="social">
@@ -760,8 +756,8 @@ section{position:relative}
       <div>
         <h4>Cơ sở</h4>
         <div class="addr">
-          <div class="a"><div class="t">Trụ sở chính</div><div class="d">Số 83, Ngõ 2 Phương Mai, Đống Đa, Hà Nội</div></div>
           <div class="a"><div class="t">Văn phòng làm việc</div><div class="d">Số 67, Ngõ 25 Bùi Huy Bích, Hoàng Mai, Hà Nội</div></div>
+          <div class="a"><div class="t">Trụ sở chính</div><div class="d">Số 83, Ngõ 2 Phương Mai, Đống Đa, Hà Nội</div></div>
           <div class="a"><div class="t">Cơ sở Hoà Bình</div><div class="d">Số 45 Phan Đình Phùng, TP. Hoà Bình</div></div>
           <div class="a"><div class="t">Văn phòng tại Đức</div><div class="d">Siegersbusch 45, 42327 Wuppertal, Germany</div></div>
         </div>
@@ -769,10 +765,10 @@ section{position:relative}
       <div>
         <h4>Truy cập nhanh</h4>
         <ul>
-          <li><a href="#about">Giới thiệu</a></li>
-          <li><a href="#dinhcu">Định cư Đức</a></li>
-          <li><a href="#nganh">Du học nghề Đức</a></li>
-          <li><a href="#tieng-duc">Đào tạo tiếng Đức</a></li>
+          <li><a href="gioi-thieu.html">Giới thiệu</a></li>
+          <li><a href="dinh-cu-duc.html">Định cư Đức</a></li>
+          <li><a href="du-hoc-nghe.html">Du học nghề Đức</a></li>
+          <li><a href="dao-tao-tieng-duc.html">Đào tạo tiếng Đức</a></li>
           <li><a href="#lotrinh">Lộ trình 6 bước</a></li>
           <li><a href="#dangky">Đăng ký tư vấn</a></li>
         </ul>
@@ -789,7 +785,7 @@ section{position:relative}
     </div>
     <div class="bottom">
       <span>© 2026 ATB Việt Nam — Trung tâm đào tạo &amp; tư vấn du học. Được Chính phủ Đức cấp phép.</span>
-      <span><a href="#">Chính sách bảo mật</a></span>
+      <span><a href="chinh-sach-bao-mat.html">Chính sách bảo mật</a></span>
     </div>
   </div>
 </footer>

@@ -5,3 +5,5 @@ Thumbs.db
 # Logs / temp
 *.log
 *.tmp
+__wtest.txt
+__pycache__/
