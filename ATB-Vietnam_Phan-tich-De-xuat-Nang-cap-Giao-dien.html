@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATB Việt Nam — Phân tích & Đề xuất Nâng cấp Giao diện</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+/* ============ DESIGN TOKENS (Hệ thống thiết kế đề xuất) ============ */
+:root{
+  /* Brand */
+  --navy-900:#0B2239; --navy-800:#0F3057; --navy-700:#143C6E; --navy-600:#1B4D80;
+  --blue-500:#2563A8; --blue-100:#E5EEF8;
+  --gold-500:#F4B740; --gold-400:#FFC95C; --gold-100:#FCEFCF;
+  --cta-600:#E23B2E; --cta-500:#EF4A3C; --cta-100:#FCE3E0;
+  --green-600:#1F9D6B; --green-100:#E1F5EC;
+  /* Neutrals */
+  --ink:#0E1726; --slate-700:#334155; --slate-500:#64748B; --slate-400:#94A3B8;
+  --line:#E5E9F0; --surface:#F6F8FB; --surface-2:#EEF2F7; --white:#fff;
+  /* Effects */
+  --r-sm:8px; --r-md:14px; --r-lg:22px; --r-xl:30px;
+  --sh-sm:0 1px 2px rgba(16,23,38,.06),0 1px 3px rgba(16,23,38,.08);
+  --sh-md:0 8px 24px -8px rgba(15,48,87,.18);
+  --sh-lg:0 24px 60px -18px rgba(15,48,87,.28);
+  --maxw:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Be Vietnam Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--ink);background:var(--surface);line-height:1.7;
+  -webkit-font-smoothing:antialiased;font-size:16px;
+}
+h1,h2,h3,h4{line-height:1.2;font-weight:800;letter-spacing:-.01em;color:var(--navy-800)}
+p{color:var(--slate-700)}
+a{color:var(--blue-500)}
+small{font-size:13px}
+
+/* ============ LAYOUT ============ */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+section{padding:54px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--blue-500);
+  background:var(--blue-100);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+.lead{font-size:18px;color:var(--slate-700);max-width:760px}
+
+/* ============ TOP NAV (report) ============ */
+.topnav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;align-items:center;gap:18px;height:60px}
+.topnav .brand{font-weight:800;color:var(--navy-800);font-size:15px;white-space:nowrap}
+.topnav .brand b{color:var(--cta-500)}
+.topnav nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.topnav nav a{font-size:13px;font-weight:600;color:var(--slate-500);text-decoration:none;
+  padding:7px 12px;border-radius:999px;transition:.18s}
+.topnav nav a:hover{color:var(--navy-800);background:var(--surface-2)}
+
+/* ============ COVER ============ */
+.cover{background:
+   radial-gradient(1100px 500px at 82% -8%,rgba(244,183,64,.20),transparent 60%),
+   radial-gradient(900px 600px at -5% 110%,rgba(37,99,168,.28),transparent 55%),
+   linear-gradient(160deg,var(--navy-900),var(--navy-800) 55%,var(--navy-700));
+  color:#fff;padding:74px 0 64px;position:relative;overflow:hidden}
+.cover h1{color:#fff;font-size:clamp(30px,5vw,52px);max-width:880px}
+.cover .lead{color:#C9D6E6;margin-top:18px;font-size:19px}
+.cover .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);color:#EaF1F9;padding:8px 15px;border-radius:999px;
+  font-size:13px;font-weight:600}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.cover .eyebrow{background:rgba(244,183,64,.16);color:var(--gold-400)}
+
+/* ============ SCORECARD ============ */
+.scoregrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:8px}
+.scorecell{background:#fff;border:1px solid var(--line);border-radius:var(--r-md);padding:18px;
+  box-shadow:var(--sh-sm)}
+.scorecell .num{font-size:30px;font-weight:800;line-height:1}
+.scorecell .lab{font-size:13px;color:var(--slate-500);margin-top:6px;font-weight:600}
+.bar{height:7px;border-radius:999px;background:var(--surface-2);margin-top:12px;overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:999px}
+
+/* ============ CARDS / GRID ============ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh-sm)}
+.card h3{font-size:18px;margin-bottom:8px}
+.card.soft{background:var(--surface)}
+
+/* ============ FINDINGS ============ */
+.finding{background:#fff;border:1px solid var(--line);border-left:5px solid var(--slate-400);
+  border-radius:var(--r-md);padding:20px 22px;margin:14px 0;box-shadow:var(--sh-sm)}
+.finding.crit{border-left-color:var(--cta-500)}
+.finding.mod{border-left-color:var(--gold-500)}
+.finding.min{border-left-color:var(--green-600)}
+.finding .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.finding h4{font-size:16px;color:var(--ink)}
+.sev{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+  padding:4px 10px;border-radius:999px;white-space:nowrap}
+.sev.crit{background:var(--cta-100);color:#B42318}
+.sev.mod{background:var(--gold-100);color:#9A6A00}
+.sev.min{background:var(--green-100);color:#15795A}
+.finding p{font-size:14.5px;margin-top:2px}
+.finding .fix{margin-top:10px;font-size:14px;background:var(--surface);border-radius:var(--r-sm);
+  padding:10px 14px;color:var(--slate-700)}
+.finding .fix b{color:var(--navy-700)}
+
+/* ============ TABLE ============ */
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r-md);
+  overflow:hidden;box-shadow:var(--sh-sm);font-size:14px}
+th,td{text-align:left;padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--navy-800);color:#fff;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+tr:last-child td{border-bottom:none}
+td b{color:var(--navy-700)}
+
+/* ============ SWATCHES ============ */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.sw{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);background:#fff;box-shadow:var(--sh-sm)}
+.sw .chiparea{height:74px}
+.sw .info{padding:10px 12px}
+.sw .info .name{font-weight:700;font-size:13px}
+.sw .info .hex{font-size:12px;color:var(--slate-500);font-family:ui-monospace,monospace}
+
+/* ============ TYPE SPEC ============ */
+.typespec>div{border-bottom:1px dashed var(--line);padding:12px 0;display:flex;
+  align-items:baseline;gap:18px;flex-wrap:wrap}
+.typespec .tag{font-size:12px;color:var(--slate-500);font-family:ui-monospace,monospace;min-width:130px}
+
+/* ============ COMPONENT DEMO ============ */
+.demo{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r-lg);padding:26px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15px;
+  border-radius:999px;padding:13px 26px;text-decoration:none;cursor:pointer;border:0;transition:.18s;font-family:inherit}
+.btn-primary{background:var(--cta-500);color:#fff;box-shadow:0 8px 20px -6px rgba(239,74,60,.5)}
+.btn-primary:hover{background:var(--cta-600);transform:translateY(-1px)}
+.btn-gold{background:var(--gold-500);color:var(--navy-900)}
+.btn-ghost{background:transparent;color:var(--navy-800);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--navy-700);background:#fff}
+
+/* ============ BEFORE / AFTER ============ */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:stretch}
+.ba .panel{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-sm);background:#fff;display:flex;flex-direction:column}
+.ba .panel .hd{padding:10px 16px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:#fff;display:flex;align-items:center;gap:8px}
+.ba .before .hd{background:#8A94A6}
+.ba .after .hd{background:linear-gradient(90deg,var(--navy-700),var(--blue-500))}
+.ba .body{padding:18px;flex:1}
+.ba ul{margin:0;padding-left:18px}
+.ba li{font-size:13.5px;color:var(--slate-700);margin:7px 0}
+
+/* mock mini renders */
+.mock{border-radius:var(--r-md);overflow:hidden;border:1px solid var(--line);font-size:11px}
+.mk-row{display:flex;gap:8px;align-items:center}
+.mini-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;display:inline-block}
+
+/* ============ ROADMAP ============ */
+.phase{display:grid;grid-template-columns:120px 1fr;gap:0;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;margin:14px 0;box-shadow:var(--sh-sm)}
+.phase .pl{padding:20px;color:#fff;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.phase.p0 .pl{background:linear-gradient(160deg,var(--cta-600),var(--cta-500))}
+.phase.p1 .pl{background:linear-gradient(160deg,var(--navy-800),var(--blue-500))}
+.phase.p2 .pl{background:linear-gradient(160deg,var(--navy-900),var(--navy-700))}
+.phase .pl .ph{font-size:12px;font-weight:700;opacity:.85;text-transform:uppercase;letter-spacing:.08em}
+.phase .pl .pt{font-size:15px;font-weight:800}
+.phase .pr{padding:18px 22px}
+.phase .pr ul{margin:0;padding-left:18px}
+.phase .pr li{font-size:14px;margin:6px 0;color:var(--slate-700)}
+
+/* utilities */
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}
+.muted{color:var(--slate-500)}
+.callout{background:linear-gradient(135deg,var(--blue-100),#fff);border:1px solid #D4E2F2;
+  border-radius:var(--r-lg);padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.callout .ic{font-size:22px;flex-shrink:0}
+.kpi{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.kpi span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;color:var(--navy-700)}
+hr{border:0;border-top:1px solid var(--line);margin:8px 0}
+footer.rep{background:var(--navy-900);color:#9FB2C7;padding:40px 0;font-size:14px}
+footer.rep b{color:#fff}
+
+@media(max-width:860px){
+  .grid2,.grid3,.ba{grid-template-columns:1fr}
+  .topnav nav{display:none}
+  .phase{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<div class="topnav">
+  <div class="wrap">
+    <div class="brand">ATB <b>·</b> Design Audit</div>
+    <nav>
+      <a href="#tomtat">Tóm tắt</a>
+      <a href="#hientrang">Hiện trạng</a>
+      <a href="#system">Hệ thống thiết kế</a>
+      <a href="#layout">Bố cục mới</a>
+      <a href="#lotrinh">Lộ trình</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="wrap">
+    <span class="eyebrow">Báo cáo phân tích UX/UI · 06/2026</span>
+    <h1>Phân tích &amp; Đề xuất nâng cấp giao diện website ATB Việt Nam</h1>
+    <p class="lead">Đánh giá toàn diện trang <b>duhocducatb.edu.vn</b> theo khung design-critique &amp; tiêu chuẩn WCAG, kèm hệ thống thiết kế hiện đại — chuyên nghiệp và lộ trình triển khai theo mức ưu tiên.</p>
+    <div class="meta">
+      <span class="chip"><span class="dot" style="background:var(--cta-500)"></span> 7 vấn đề nghiêm trọng</span>
+      <span class="chip"><span class="dot" style="background:var(--gold-500)"></span> Định hướng: Hiện đại &amp; chuyên nghiệp</span>
+      <span class="chip"><span class="dot" style="background:var(--green-600)"></span> Phạm vi: Toàn bộ website</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section id="tomtat">
+  <div class="wrap">
+    <span class="eyebrow">01 · Tóm tắt điều hành</span>
+    <h2>Nền tảng nội dung tốt, nhưng lớp giao diện đang kéo lùi uy tín</h2>
+    <p class="lead mt16">Website có <b>nội dung mạnh và đầy đủ</b> (lộ trình 6 bước, 4 ngành tuyển sinh, đối tác Đức uy tín như Goethe-Institut, telc, DEHOGA, DRK). Tuy nhiên lớp trình bày mang dấu ấn theme WordPress cũ (~2022): ảnh hero/banner không tải được để lại khoảng trống lớn, phong cách tiêu đề lỗi thời, minh hoạ chắp vá, tương phản màu chưa đạt chuẩn, và thông tin địa chỉ mâu thuẫn giữa các trang. Với một đơn vị tư vấn "được Chính phủ Đức cấp phép", giao diện hiện tại chưa truyền tải được mức độ tin cậy tương xứng.</p>
+
+    <div class="scoregrid mt32">
+      <div class="scorecell"><div class="num" style="color:var(--cta-500)">4.0</div><div class="lab">Ấn tượng đầu / 10</div><div class="bar"><i style="width:40%;background:var(--cta-500)"></i></div></div>
+      <div class="scorecell"><div class="num" style="color:var(--gold-500)">5.5</div><div class="lab">Điều hướng / 10</div><div class="bar"><i style="width:55%;background:var(--gold-500)"></i></div></div>
+      <div class="scorecell"><div class="num" style="color:var(--cta-500)">4.5</div><div class="lab">Phân cấp thị giác / 10</div><div class="bar"><i style="width:45%;background:var(--cta-500)"></i></div></div>
+      <div class="scorecell"><div class="num" style="color:var(--gold-500)">5.0</div><div class="lab">Nhất quán / 10</div><div class="bar"><i style="width:50%;background:var(--gold-500)"></i></div></div>
+      <div class="scorecell"><div class="num" style="color:var(--cta-500)">3.5</div><div class="lab">Tiếp cận (a11y) / 10</div><div class="bar"><i style="width:35%;background:var(--cta-500)"></i></div></div>
+      <div class="scorecell"><div class="num" style="color:var(--gold-500)">5.0</div><div class="lab">Chuyển đổi / 10</div><div class="bar"><i style="width:50%;background:var(--gold-500)"></i></div></div>
+    </div>
+
+    <div class="callout mt32">
+      <div class="ic">🎯</div>
+      <div>
+        <b style="color:var(--navy-800)">5 cơ hội tác động lớn nhất</b>
+        <ol style="margin:10px 0 0 18px;color:var(--slate-700);font-size:15px">
+          <li>Sửa/định nghĩa lại <b>hero &amp; banner</b> — hiện để trống nửa màn hình đầu tiên (ảnh không tải).</li>
+          <li>Thay <b>hệ thống màu &amp; typography</b> theo tone navy + vàng gold chuyên nghiệp, đạt chuẩn tương phản.</li>
+          <li>Chuẩn hoá <b>thành phần</b> (nút, card, timeline, form) thành một design system nhất quán.</li>
+          <li>Thống nhất <b>thông tin liên hệ &amp; địa chỉ</b> đang mâu thuẫn ở nhiều nơi; sửa lỗi cờ/ký tự.</li>
+          <li>Bổ sung <b>tín hiệu tin cậy &amp; CTA rõ ràng</b> (số liệu, logo đối tác lên trên, nút "Đăng ký tư vấn").</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ METHOD ============ -->
+<section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">02 · Phương pháp &amp; phạm vi</span>
+    <div class="grid2 mt16">
+      <div>
+        <h2 style="font-size:24px">Đánh giá dựa trên dữ liệu thực</h2>
+        <p class="mt8">Phân tích thực hiện trên website đang chạy thật (06/2026): chụp màn hình toàn bộ trang chủ theo từng khối, trang Giới thiệu và Liên hệ, cùng nội dung điều hướng đầy đủ. Mỗi nhận định gắn với bằng chứng quan sát được, không suy đoán.</p>
+        <div class="kpi">
+          <span>Khung design-critique 5 trục</span>
+          <span>WCAG 2.1 AA</span>
+          <span>Heuristics chuyển đổi</span>
+          <span>Kỹ thuật &amp; hiệu năng</span>
+        </div>
+      </div>
+      <div class="card soft">
+        <h3>Phạm vi đã rà soát</h3>
+        <ul style="margin:6px 0 0 18px;font-size:14.5px;color:var(--slate-700)">
+          <li>Trang chủ — 13 khối nội dung</li>
+          <li>Menu chính: Trang chủ, Giới thiệu, Định cư Đức, Du học nghề CHLB Đức (+4 ngành), Đào tạo tiếng Đức, Liên hệ</li>
+          <li>Trang Giới thiệu &amp; Trang Liên hệ</li>
+          <li>Header, footer, form đăng ký, nút nổi</li>
+        </ul>
+        <p class="muted mt16" style="font-size:13px">⚠️ Hiển thị mobile chưa kiểm chứng đầy đủ do giả lập thiết bị không đổi viewport; đã đánh dấu là hạng mục cần kiểm thử riêng.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CURRENT STATE ============ -->
+<section id="hientrang">
+  <div class="wrap">
+    <span class="eyebrow">03 · Phân tích hiện trạng</span>
+    <h2>Những điểm cần cải thiện, theo mức độ ưu tiên</h2>
+    <p class="lead mt8">Mỗi phát hiện gồm: vấn đề quan sát được, lý do tác động đến người dùng/uy tín, và hướng xử lý. Mức độ: <span class="mini-badge" style="background:var(--cta-100);color:#B42318">Nghiêm trọng</span> <span class="mini-badge" style="background:var(--gold-100);color:#9A6A00">Trung bình</span> <span class="mini-badge" style="background:var(--green-100);color:#15795A">Nhẹ</span></p>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Ấn tượng đầu &amp; Hero</h3>
+    <div class="finding crit">
+      <div class="top"><span class="sev crit">Nghiêm trọng</span><h4>Hero để trống ~50% màn hình đầu — ảnh nền không hiển thị</h4></div>
+      <p>Khu vực hero là một khối navy đậm gần như trống, không có hình ảnh minh hoạ. Banner ở trang Giới thiệu và Liên hệ cũng để khoảng xám trống tương tự. Đây là "tài sản đắt giá nhất" của trang nhưng đang lãng phí — người dùng cuộn qua mà không nhận được thông điệp hay cảm xúc nào.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Dựng hero mới có ảnh thật (du học sinh tại Đức), tiêu đề giá trị rõ ràng, 2 nút CTA, và dải tín hiệu tin cậy. Tối ưu ảnh (WebP, &lt;200KB) và bỏ lazy-load cho ảnh đầu trang.</div>
+    </div>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Tiêu đề hero viết HOA toàn bộ, thiếu nút phụ &amp; bằng chứng</h4></div>
+      <p>"DU HỌC ĐỨC – ĐỊNH HƯỚNG CHO TƯƠNG LAI – NÂNG TÂM TRI THỨC VIỆT!" viết hoa toàn bộ gây khó đọc và mang cảm giác khẩu hiệu cũ. Chỉ có 1 nút "Xem chi tiết" chung chung, chưa có hành động chuyển đổi mạnh (đăng ký tư vấn) hay số liệu chứng minh.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Tiêu đề viết thường có trọng âm (in đậm từ khoá), thêm CTA chính "Đăng ký tư vấn miễn phí" + CTA phụ "Xem lộ trình", kèm 3–4 số liệu nổi bật.</div>
+    </div>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Điều hướng &amp; Header</h3>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Header dính (sticky) trong suốt — chữ menu chìm vào ảnh phía sau</h4></div>
+      <p>Khi cuộn, thanh menu chuyển nền trắng mờ; trên các khối có ảnh, chữ "Du học nghề CHLB Đức", "Đào tạo tiếng Đức" bị giảm tương phản, khó đọc. Logo cũng đè lên nội dung ở một số đoạn.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Header nền đặc (trắng hoặc navy) với bóng nhẹ khi cuộn, đảm bảo tương phản ≥ 4.5:1, thêm khoảng đệm để không đè nội dung.</div>
+    </div>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Thiếu nút hành động (CTA) trong thanh điều hướng</h4></div>
+      <p>Menu chỉ gồm các liên kết văn bản đồng cấp; không có nút nổi bật như "Đăng ký tư vấn" / số hotline dạng nút. Người dùng sẵn sàng liên hệ không có điểm bấm rõ ràng ở mọi thời điểm.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Thêm nút CTA màu nhấn ở góc phải menu, luôn hiển thị; gộp hotline thành nút bấm gọi.</div>
+    </div>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Phân cấp thị giác &amp; Typography</h3>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Tiêu đề mục viết HOA màu đỏ-mận + gạch kim cương — phong cách lỗi thời</h4></div>
+      <p>Mọi tiêu đề mục ("DỊCH VỤ ATB VIỆT NAM CUNG CẤP", "CÂU CHUYỆN THÀNH CÔNG"…) đều viết HOA, màu đỏ-mận, kèm đường gạch hình thoi ở giữa — mô-típ đặc trưng của theme ~2015–2018. Chữ HOA dài làm giảm tốc độ đọc và cảm giác hiện đại.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Tiêu đề chữ thường, font đậm, màu navy; dùng "eyebrow" nhỏ phía trên thay cho gạch kim cương; căn trái nhiều hơn căn giữa để dễ quét mắt.</div>
+    </div>
+    <div class="finding min">
+      <div class="top"><span class="sev min">Nhẹ</span><h4>Thang typography &amp; khoảng cách chưa hệ thống</h4></div>
+      <p>Kích thước chữ, khoảng cách dòng và khoảng trắng giữa các khối thiếu nhịp điệu thống nhất; một số đoạn body khá dày, dòng dài, ít khoảng nghỉ.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Áp dụng type scale &amp; spacing scale chuẩn (mục 04), giới hạn độ rộng dòng ~70 ký tự.</div>
+    </div>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Hình ảnh, minh hoạ &amp; nhận diện</h3>
+    <div class="finding crit">
+      <div class="top"><span class="sev crit">Nghiêm trọng</span><h4>Ảnh nền "lệch thương hiệu" — xuất hiện công trình không thuộc nước Đức</h4></div>
+      <p>Khối form đăng ký và một vài nền dùng ảnh phong cảnh không liên quan đến Đức (ví dụ Nhà hát Opera Sydney). Với một thương hiệu du học <b>Đức</b>, đây là chi tiết làm giảm độ tin cậy và sự chỉn chu.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Thay toàn bộ bằng ảnh đúng bối cảnh Đức (kiến trúc, trường nghề, sinh viên), một thư viện ảnh nhất quán về tông màu.</div>
+    </div>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Minh hoạ dịch vụ chắp vá nhiều phong cách</h4></div>
+      <p>3 thẻ dịch vụ dùng 3 phong cách minh hoạ khác nhau (vector phẳng kiểu doanh nghiệp, collage nhiều màu, nhân vật thiền) — thiếu sự thống nhất, làm khối dịch vụ trông rời rạc.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Dùng một bộ icon/illustration cùng style &amp; cùng bảng màu; hoặc icon line tối giản trên nền màu thương hiệu.</div>
+    </div>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Lỗi cờ &amp; ký tự ở khối lộ trình</h4></div>
+      <p>Ở timeline 6 bước, phần "cờ Đức" hiển thị lẫn lộn (có bước ra cờ khác, có bước là ảnh hỏng) kèm chuỗi ký tự lỗi mã hoá ("cờ: Đức (Cá»? - LÃ¡ cá»?…)"). Đây là lỗi alt-text/encoding lộ ra ngoài.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Thay bằng số thứ tự bước thiết kế sẵn (01–06) đồng bộ; sửa encoding UTF-8 cho alt-text.</div>
+    </div>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Thành phần &amp; Bố cục</h3>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Chữ tiêu đề trắng đè ảnh sáng ở thẻ "Chương trình tuyển sinh"</h4></div>
+      <p>Tiêu đề ngành (Nhà hàng–Khách sạn, Cơ khí–Điện tử…) là chữ trắng đặt trên ảnh nền sáng, nhiều chỗ gần như không đọc được; thẻ còn bị header dính che một phần khi cuộn tới.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Thêm lớp phủ gradient tối dưới chữ hoặc tách chữ ra vùng nền đặc; chuẩn hoá thẻ ngành có ảnh + nhãn + mô tả + nút.</div>
+    </div>
+    <div class="finding min">
+      <div class="top"><span class="sev min">Nhẹ</span><h4>Timeline kiểu mũi tên xanh/xám &amp; bóng đổ nặng</h4></div>
+      <p>Khối lộ trình dùng các tấm hình mũi tên xen kẽ xanh/xám, bóng đổ dày — nặng nề và khó theo dõi tuần tự trên màn hình hẹp.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Stepper dọc/ngang tối giản, đánh số rõ, mốc thời gian nổi bật (mục 05).</div>
+    </div>
+    <div class="finding min">
+      <div class="top"><span class="sev min">Nhẹ</span><h4>Cụm nút nổi bên phải hơi rối</h4></div>
+      <p>Cột nút nổi (gọi điện, nhắn tin, lên đầu trang) thiết kế thô, viền đứt, chiếm thị giác.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Gộp thành 1 nút "Liên hệ nhanh" bo tròn, mở rộng khi hover; nút lên đầu tách riêng, mờ khi không dùng.</div>
+    </div>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Khả năng tiếp cận (WCAG 2.1 AA)</h3>
+    <table class="mt8">
+      <tr><th>Tiêu chí</th><th>Hiện trạng</th><th>Khuyến nghị</th></tr>
+      <tr><td><b>Tương phản màu</b></td><td>Chữ trắng/đỏ-mận trên ảnh &amp; nền sáng nhiều chỗ &lt; 4.5:1 → chưa đạt</td><td>Đảm bảo ≥ 4.5:1 cho body, ≥ 3:1 cho chữ lớn; thêm lớp phủ</td></tr>
+      <tr><td><b>Văn bản thay thế (alt)</b></td><td>Nhiều ảnh thiếu alt; có alt lỗi encoding lộ ra UI</td><td>Viết alt mô tả, UTF-8; ảnh trang trí để alt rỗng</td></tr>
+      <tr><td><b>Vùng chạm (mobile)</b></td><td>Một số liên kết/nút nhỏ, gần nhau</td><td>Tối thiểu 44×44px, giãn cách hợp lý</td></tr>
+      <tr><td><b>Form</b></td><td>Chỉ có placeholder, thiếu &lt;label&gt; thật</td><td>Thêm label gắn input, thông báo lỗi rõ ràng</td></tr>
+      <tr><td><b>Khả năng đọc</b></td><td>Tiêu đề HOA dài, dòng dài</td><td>Chữ thường, giới hạn độ rộng dòng</td></tr>
+    </table>
+
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">▸ Kỹ thuật, nội dung &amp; SEO</h3>
+    <div class="finding crit">
+      <div class="top"><span class="sev crit">Nghiêm trọng</span><h4>Thông tin địa chỉ mâu thuẫn giữa các vị trí</h4></div>
+      <p>Thanh trên cùng ghi <b>"Số 67, Ngõ 25 Bùi Huy Bích, Hoàng Mai"</b>; phần thân trang lại ghi trụ sở <b>"Số 83, Ngõ 2 Phương Mai, Đống Đa"</b> và còn nhắc <b>"Số 22, Ngõ 350 Kim Giang"</b>; footer liệt kê Trụ sở/Văn phòng/Cơ sở 1/Cơ sở 2 khác nữa. Người dùng không biết đâu là địa chỉ đúng — ảnh hưởng trực tiếp đến niềm tin &amp; tỷ lệ đến tư vấn.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Chuẩn hoá một "nguồn sự thật" về địa chỉ/hotline, dùng nhất quán toàn site; trang Liên hệ liệt kê rõ từng cơ sở kèm bản đồ.</div>
+    </div>
+    <div class="finding mod">
+      <div class="top"><span class="sev mod">Trung bình</span><h4>Bản đồ &amp; nhúng không hiển thị ở trang Liên hệ</h4></div>
+      <p>Khu vực "Bản đồ" để trống khi truy cập; có thể do lazy-load/nhúng lỗi. Trang Liên hệ là điểm chuyển đổi quan trọng nhưng đang thiếu bản đồ trực quan.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Nhúng Google Maps đúng toạ độ từng cơ sở, có dự phòng ảnh tĩnh + nút chỉ đường.</div>
+    </div>
+    <div class="finding min">
+      <div class="top"><span class="sev min">Nhẹ</span><h4>Lỗi chính tả &amp; viết hoa không nhất quán trong nội dung</h4></div>
+      <p>Xuất hiện "VIệt Nam", "trài nghiệm", liên kết "dao-tao-tieng-anh" cho mục tiếng Đức… Những lỗi nhỏ nhưng cộng dồn làm giảm cảm giác chuyên nghiệp.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Soát chính tả toàn site; chuẩn hoá slug/liên kết đúng chủ đề (Đức).</div>
+    </div>
+    <div class="finding min">
+      <div class="top"><span class="sev min">Nhẹ</span><h4>Trang nặng do ảnh chưa tối ưu &amp; theme cũ</h4></div>
+      <p>Nền WordPress với nhiều ảnh lớn, hiệu ứng bóng/gradient nặng; ảnh đầu trang lazy-load gây "khoảng trắng" trước khi tải.</p>
+      <div class="fix"><b>Hướng xử lý:</b> Nén ảnh WebP, đặt kích thước cố định tránh layout shift, preload ảnh hero, gom CSS.</div>
+    </div>
+
+    <div class="callout mt32">
+      <div class="ic">✅</div>
+      <div>
+        <b style="color:var(--navy-800)">Điểm đang làm tốt — cần giữ &amp; phát huy</b>
+        <ul style="margin:10px 0 0 18px;color:var(--slate-700);font-size:15px">
+          <li>Nội dung đầy đủ, có chiều sâu: lộ trình 6 bước, 4 ngành, quyền lợi rõ ràng.</li>
+          <li>Bằng chứng tin cậy mạnh: đối tác Đức thật (Goethe-Institut, telc, DRK, DEHOGA, bsw, fuu-sachsen).</li>
+          <li>Có câu chuyện thành công (testimonials) — chất liệu vàng cho chuyển đổi.</li>
+          <li>Cấu trúc điều hướng hợp lý theo phễu: Giới thiệu → Dịch vụ → Ngành → Liên hệ.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESIGN SYSTEM ============ -->
+<section id="system" style="background:#fff;border-top:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">04 · Hệ thống thiết kế đề xuất</span>
+    <h2>Một ngôn ngữ thiết kế: tin cậy, hiện đại, cảm hứng Đức</h2>
+    <p class="lead mt8">Định hướng "hiện đại &amp; chuyên nghiệp": tông <b>navy</b> tạo cảm giác uy tín &amp; tri thức, điểm nhấn <b>vàng gold</b> gợi chất Đức &amp; sự cao cấp, nút hành động <b>đỏ</b> kế thừa thương hiệu nhưng tinh chỉnh lại. Chính tài liệu bạn đang đọc được dựng theo hệ màu này.</p>
+
+    <h3 class="mt32" style="font-size:17px">Bảng màu</h3>
+    <div class="swatches mt16">
+      <div class="sw"><div class="chiparea" style="background:var(--navy-800)"></div><div class="info"><div class="name">Navy (Primary)</div><div class="hex">#0F3057</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--navy-600)"></div><div class="info"><div class="name">Navy 600</div><div class="hex">#1B4D80</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--blue-500)"></div><div class="info"><div class="name">Blue (Link)</div><div class="hex">#2563A8</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--gold-500)"></div><div class="info"><div class="name">Gold (Accent)</div><div class="hex">#F4B740</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--cta-500)"></div><div class="info"><div class="name">Đỏ (CTA)</div><div class="hex">#EF4A3C</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--green-600)"></div><div class="info"><div class="name">Xanh (Success)</div><div class="hex">#1F9D6B</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--ink)"></div><div class="info"><div class="name">Ink (Text)</div><div class="hex">#0E1726</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--slate-500)"></div><div class="info"><div class="name">Slate (Body)</div><div class="hex">#64748B</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--surface);border-bottom:1px solid var(--line)"></div><div class="info"><div class="name">Surface</div><div class="hex">#F6F8FB</div></div></div>
+      <div class="sw"><div class="chiparea" style="background:var(--gold-100)"></div><div class="info"><div class="name">Gold 100</div><div class="hex">#FCEFCF</div></div></div>
+    </div>
+    <p class="muted mt16" style="font-size:13px">Tất cả cặp màu chữ/nền đề xuất đều đạt tương phản WCAG AA: ví dụ Ink trên White ≈ 16:1, White trên Navy-800 ≈ 11:1, White trên CTA ≈ 4.6:1.</p>
+
+    <div class="grid2 mt32">
+      <div>
+        <h3 style="font-size:17px">Typography — <span style="color:var(--blue-500)">Be Vietnam Pro</span></h3>
+        <p class="mt8" style="font-size:14.5px">Font Việt hoá chuẩn, dấu thanh đẹp, nhiều độ đậm — thay cho font theme mặc định. Dùng một họ font cho cả tiêu đề &amp; nội dung để gọn nhẹ &amp; nhất quán.</p>
+        <div class="typespec mt16 card soft" style="padding:18px 20px">
+          <div><span class="tag">Display / H1 · 800</span><span style="font-size:30px;font-weight:800;color:var(--navy-800)">Du học nghề Đức</span></div>
+          <div><span class="tag">Heading / H2 · 700</span><span style="font-size:23px;font-weight:700;color:var(--navy-800)">Lộ trình &amp; quyền lợi</span></div>
+          <div><span class="tag">Subhead / H3 · 600</span><span style="font-size:18px;font-weight:600;color:var(--ink)">Ngành Điều dưỡng</span></div>
+          <div><span class="tag">Body · 400</span><span style="font-size:15px;color:var(--slate-700)">Đồng hành đến khi bạn định cư tại Đức.</span></div>
+          <div><span class="tag">Caption · 500</span><span style="font-size:13px;font-weight:500;color:var(--slate-500)">Cập nhật 06/2026</span></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:17px">Thang khoảng cách &amp; bo góc</h3>
+        <p class="mt8" style="font-size:14.5px">Hệ 4/8px tạo nhịp điệu nhất quán; bán kính bo lớn dần theo cấp thành phần cho cảm giác mềm mại, hiện đại.</p>
+        <div class="card soft mt16" style="padding:18px 20px">
+          <div class="mk-row" style="gap:6px;align-items:flex-end;margin-bottom:16px">
+            <div style="width:4px;height:16px;background:var(--blue-500)" title="4"></div>
+            <div style="width:8px;height:24px;background:var(--blue-500)" title="8"></div>
+            <div style="width:12px;height:34px;background:var(--blue-500)" title="12"></div>
+            <div style="width:16px;height:44px;background:var(--blue-500)" title="16"></div>
+            <div style="width:24px;height:58px;background:var(--blue-500)" title="24"></div>
+            <div style="width:32px;height:74px;background:var(--blue-500)" title="32"></div>
+            <small class="muted" style="margin-left:8px">4 · 8 · 12 · 16 · 24 · 32 · 48</small>
+          </div>
+          <div class="mk-row" style="gap:10px">
+            <div style="width:46px;height:46px;background:#fff;border:1px solid var(--line);border-radius:8px"></div>
+            <div style="width:46px;height:46px;background:#fff;border:1px solid var(--line);border-radius:14px"></div>
+            <div style="width:46px;height:46px;background:#fff;border:1px solid var(--line);border-radius:22px"></div>
+            <div style="width:46px;height:46px;background:#fff;border:1px solid var(--line);border-radius:50%"></div>
+            <small class="muted" style="margin-left:6px">radius 8 · 14 · 22 · pill</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="mt32" style="font-size:17px">Thành phần (UI components)</h3>
+    <div class="demo mt16">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn btn-primary">Đăng ký tư vấn miễn phí →</button>
+        <button class="btn btn-gold">Xem lộ trình</button>
+        <button class="btn btn-ghost">Tìm hiểu thêm</button>
+      </div>
+      <div class="grid3 mt24">
+        <div class="card" style="padding:20px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--blue-100);display:flex;align-items:center;justify-content:center;font-size:22px">🎓</div>
+          <h3 class="mt8" style="font-size:16px">Tư vấn du học nghề</h3>
+          <p style="font-size:13.5px;margin-top:4px">Chọn ngành, trường &amp; nơi làm việc phù hợp.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--gold-100);display:flex;align-items:center;justify-content:center;font-size:22px">🛂</div>
+          <h3 class="mt8" style="font-size:16px">Tư vấn Visa Đức</h3>
+          <p style="font-size:13.5px;margin-top:4px">Đúng quy định Lãnh sự quán, tỷ lệ đỗ cao.</p>
+        </div>
+        <div class="card" style="padding:20px">
+          <div style="width:46px;height:46px;border-radius:12px;background:var(--green-100);display:flex;align-items:center;justify-content:center;font-size:22px">🗣️</div>
+          <h3 class="mt8" style="font-size:16px">Đào tạo tiếng Đức</h3>
+          <p style="font-size:13.5px;margin-top:4px">Lộ trình A1–B2, liên kết trường tại Đức.</p>
+        </div>
+      </div>
+      <div class="mk-row mt24" style="gap:8px;flex-wrap:wrap">
+        <span class="mini-badge" style="background:var(--green-100);color:#15795A">● Miễn phí 100% học phí</span>
+        <span class="mini-badge" style="background:var(--blue-100);color:var(--blue-500)">● Định cư sau 2 năm</span>
+        <span class="mini-badge" style="background:var(--gold-100);color:#9A6A00">● Lương 2.500–3.500€/tháng</span>
+        <span class="mini-badge" style="background:var(--cta-100);color:#B42318">● Cấp phép bởi CP Đức</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LAYOUT BEFORE/AFTER ============ -->
+<section id="layout">
+  <div class="wrap">
+    <span class="eyebrow">05 · Bố cục mới theo từng khối</span>
+    <h2>Hiện trạng → Đề xuất</h2>
+    <p class="lead mt8">So sánh nhanh từng khu vực chính của trang chủ và mẫu trang con, theo nguyên tắc: dẫn dắt thị giác rõ ràng, tăng tín hiệu tin cậy, và luôn có đường dẫn tới hành động.</p>
+
+    <!-- HERO -->
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">① Hero (đầu trang)</h3>
+    <div class="ba mt16">
+      <div class="panel before">
+        <div class="hd">● Hiện tại</div>
+        <div class="body">
+          <ul>
+            <li>Khối navy trống ~50% màn hình, ảnh không tải.</li>
+            <li>Tiêu đề HOA dài, 1 nút "Xem chi tiết" chung chung.</li>
+            <li>Không có số liệu / tín hiệu tin cậy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel after">
+        <div class="hd">✦ Đề xuất</div>
+        <div class="body" style="padding:0">
+          <!-- mini hero render -->
+          <div style="background:linear-gradient(150deg,var(--navy-900),var(--navy-700));padding:20px;color:#fff;border-radius:0">
+            <span style="font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--gold-400);text-transform:uppercase">Du học nghề CHLB Đức</span>
+            <div style="font-size:18px;font-weight:800;margin:8px 0;line-height:1.25">Định cư Đức qua con đường <span style="color:var(--gold-400)">du học nghề miễn phí</span></div>
+            <div style="display:flex;gap:8px;margin:12px 0">
+              <span style="background:var(--cta-500);color:#fff;font-size:10px;font-weight:700;padding:7px 12px;border-radius:999px">Đăng ký tư vấn →</span>
+              <span style="background:rgba(255,255,255,.14);color:#fff;font-size:10px;font-weight:700;padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.25)">Xem lộ trình</span>
+            </div>
+            <div style="display:flex;gap:14px;border-top:1px solid rgba(255,255,255,.15);padding-top:10px;margin-top:4px">
+              <div><div style="font-size:15px;font-weight:800;color:var(--gold-400)">100%</div><div style="font-size:9px;color:#C9D6E6">miễn học phí</div></div>
+              <div><div style="font-size:15px;font-weight:800;color:var(--gold-400)">2.500€+</div><div style="font-size:9px;color:#C9D6E6">lương sau TN</div></div>
+              <div><div style="font-size:15px;font-weight:800;color:var(--gold-400)">1.000+</div><div style="font-size:9px;color:#C9D6E6">học viên</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRUST BAR -->
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">② Dải tín hiệu tin cậy (mới)</h3>
+    <div class="callout" style="background:#fff;border-style:solid">
+      <div class="ic">🤝</div>
+      <div>
+        <p style="font-size:14.5px"><b style="color:var(--navy-800)">Đưa logo đối tác Đức lên ngay dưới hero.</b> Goethe-Institut, telc, Deutsches Rotes Kreuz, DEHOGA, bsw, fuu-sachsen là bằng chứng uy tín mạnh nhất bạn có — hiện đang nằm tận cuối trang. Kèm dòng "Được Chính phủ Đức cấp phép" + huy hiệu.</p>
+      </div>
+    </div>
+
+    <!-- ROADMAP -->
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">③ Lộ trình 6 bước</h3>
+    <div class="ba mt16">
+      <div class="panel before">
+        <div class="hd">● Hiện tại</div>
+        <div class="body"><ul>
+          <li>Tấm mũi tên xen kẽ xanh/xám, bóng nặng.</li>
+          <li>Lỗi ảnh cờ &amp; ký tự encoding.</li>
+          <li>Khó theo dõi thứ tự trên màn hình hẹp.</li>
+        </ul></div>
+      </div>
+      <div class="panel after">
+        <div class="hd">✦ Đề xuất — stepper tối giản</div>
+        <div class="body">
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div class="mk-row" style="gap:12px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:30px;height:30px;border-radius:50%;background:var(--navy-800);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">01</div>
+                <div style="width:2px;height:22px;background:var(--line)"></div>
+              </div>
+              <div style="padding-top:3px"><div style="font-size:13px;font-weight:700;color:var(--ink)">Đào tạo xuất cảnh</div><div style="font-size:11px;color:var(--slate-500)">5–8 tháng · tiếng Đức A2–B1</div></div>
+            </div>
+            <div class="mk-row" style="gap:12px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:30px;height:30px;border-radius:50%;background:var(--blue-500);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">02</div>
+                <div style="width:2px;height:22px;background:var(--line)"></div>
+              </div>
+              <div style="padding-top:3px"><div style="font-size:13px;font-weight:700;color:var(--ink)">Hồ sơ &amp; xuất cảnh</div><div style="font-size:11px;color:var(--slate-500)">1–3 tháng · xin &amp; nhận visa</div></div>
+            </div>
+            <div class="mk-row" style="gap:12px;align-items:flex-start">
+              <div style="display:flex;flex-direction:column;align-items:center">
+                <div style="width:30px;height:30px;border-radius:50%;background:var(--gold-500);color:var(--navy-900);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center">06</div>
+              </div>
+              <div style="padding-top:3px"><div style="font-size:13px;font-weight:700;color:var(--ink)">Định cư &amp; nhập tịch</div><div style="font-size:11px;color:var(--slate-500)">Quyền lợi như công dân Đức</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECRUITMENT + FORM as recommendations -->
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">④ Thẻ ngành tuyển sinh &amp; ⑤ Form đăng ký</h3>
+    <div class="grid2 mt16">
+      <div class="card">
+        <h3>Thẻ ngành chuẩn hoá</h3>
+        <p style="font-size:14px">Mỗi ngành (Nhà hàng–Khách sạn, Cơ khí–Điện tử, Điều dưỡng, Xây dựng): ảnh thật + lớp phủ gradient đảm bảo đọc tên, nhãn "Đang tuyển", 2–3 gạch đầu dòng quyền lợi, nút "Tìm hiểu ngành". Lưới đều, bo góc 22px, bóng nhẹ.</p>
+      </div>
+      <div class="card">
+        <h3>Form đăng ký gọn, đáng tin</h3>
+        <p style="font-size:14px">Bỏ ảnh nền lệch chủ đề; nền navy/surface sạch. Thêm &lt;label&gt; thật, nhóm chọn quan tâm dạng "chip", nút <b style="color:var(--cta-500)">"Đăng ký giữ chỗ"</b> nổi bật + dòng cam kết bảo mật. Hiển thị hotline &amp; thời gian phản hồi bên cạnh.</p>
+      </div>
+    </div>
+
+    <!-- INNER / FOOTER -->
+    <h3 class="mt32" style="font-size:18px;color:var(--blue-500)">⑥ Trang con &amp; Footer</h3>
+    <div class="grid2 mt16">
+      <div class="card soft">
+        <h3>Mẫu trang con (Giới thiệu, Ngành, Liên hệ)</h3>
+        <p style="font-size:14px">Banner gọn có tiêu đề + breadcrumb (bỏ khoảng trống lớn), bố cục nội dung 1 cột rộng ~720px dễ đọc, mục lục bên (với trang dài), CTA cuối trang. Trang Liên hệ: bản đồ từng cơ sở + form + giờ làm việc.</p>
+      </div>
+      <div class="card soft">
+        <h3>Footer thống nhất</h3>
+        <p style="font-size:14px">Giữ 4 cột nhưng chuẩn hoá địa chỉ (một nguồn sự thật), thêm icon mạng xã hội rõ ràng, đăng ký nhận tin, và dòng cấp phép. Đảm bảo tương phản chữ trên nền tối.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section id="lotrinh" style="background:#fff;border-top:1px solid var(--line)">
+  <div class="wrap">
+    <span class="eyebrow">06 · Lộ trình triển khai</span>
+    <h2>Làm theo 3 đợt, ưu tiên tác động cao</h2>
+    <p class="lead mt8">Không cần làm lại toàn bộ ngay. Bắt đầu bằng các sửa lỗi "tác động cao – công sức thấp", sau đó nâng cấp giao diện, rồi mở rộng hệ thống.</p>
+
+    <div class="phase p0 mt24">
+      <div class="pl"><span class="ph">Đợt 0</span><span class="pt">Sửa nhanh<br>1–2 tuần</span></div>
+      <div class="pr">
+        <ul>
+          <li><b>Sửa ảnh hero/banner</b> không tải; thay ảnh nền lệch chủ đề (Sydney) bằng ảnh đúng bối cảnh Đức.</li>
+          <li><b>Thống nhất địa chỉ &amp; hotline</b> trên toàn site; sửa lỗi cờ/encoding ở timeline; soát chính tả.</li>
+          <li>Sửa <b>tương phản</b> chữ trên ảnh (lớp phủ) &amp; header dính; khắc phục bản đồ trang Liên hệ.</li>
+        </ul>
+        <div class="kpi"><span>Công sức: Thấp</span><span>Tác động: Cao</span></div>
+      </div>
+    </div>
+
+    <div class="phase p1">
+      <div class="pl"><span class="ph">Đợt 1</span><span class="pt">Nâng cấp UI<br>3–5 tuần</span></div>
+      <div class="pr">
+        <ul>
+          <li>Áp dụng <b>design system</b> (màu, Be Vietnam Pro, spacing, bo góc) lên theme.</li>
+          <li>Dựng lại <b>hero + dải đối tác + lộ trình stepper + thẻ ngành + form</b> theo mục 05.</li>
+          <li>Chuẩn hoá <b>nút &amp; card</b>, thêm CTA cố định trong header; gọn cụm nút nổi.</li>
+        </ul>
+        <div class="kpi"><span>Công sức: Trung bình</span><span>Tác động: Cao</span></div>
+      </div>
+    </div>
+
+    <div class="phase p2">
+      <div class="pl"><span class="ph">Đợt 2</span><span class="pt">Hoàn thiện<br>4–6 tuần</span></div>
+      <div class="pr">
+        <ul>
+          <li>Tối ưu <b>responsive/mobile</b> đầy đủ (kiểm thử thiết bị thật) &amp; hiệu năng (WebP, preload, giảm CLS).</li>
+          <li>Hoàn thiện <b>mẫu trang con</b> &amp; trang ngành; bổ sung trang câu chuyện thành công có ảnh/video thật.</li>
+          <li>Thiết lập <b>đo lường</b>: theo dõi tỷ lệ điền form, nhấp hotline, thời gian ở trang.</li>
+        </ul>
+        <div class="kpi"><span>Công sức: Trung bình</span><span>Tác động: Trung bình–Cao</span></div>
+      </div>
+    </div>
+
+    <h3 class="mt32" style="font-size:17px">Chỉ số nên theo dõi sau nâng cấp</h3>
+    <table class="mt8">
+      <tr><th>Mục tiêu</th><th>Chỉ số</th><th>Vì sao</th></tr>
+      <tr><td><b>Chuyển đổi</b></td><td>Tỷ lệ gửi form, lượt nhấp gọi/nhắn tin</td><td>Đo trực tiếp hiệu quả kinh doanh của giao diện mới</td></tr>
+      <tr><td><b>Tương tác</b></td><td>Thời gian trên trang, độ sâu cuộn, tỷ lệ thoát</td><td>Hero &amp; tín hiệu tin cậy mới giữ chân người dùng tốt hơn</td></tr>
+      <tr><td><b>Kỹ thuật</b></td><td>Core Web Vitals (LCP, CLS), điểm PageSpeed</td><td>Ảnh tối ưu &amp; bỏ layout shift cải thiện trải nghiệm &amp; SEO</td></tr>
+      <tr><td><b>Tiếp cận</b></td><td>Lỗi tương phản, alt thiếu (audit định kỳ)</td><td>Đảm bảo đạt WCAG AA, mở rộng tệp người dùng</td></tr>
+    </table>
+
+    <div class="callout mt32">
+      <div class="ic">🚀</div>
+      <div>
+        <b style="color:var(--navy-800)">Bước tiếp theo gợi ý</b>
+        <p style="font-size:14.5px;margin-top:6px">Mình có thể dựng tiếp một <b>trang chủ mẫu (HTML) hoàn chỉnh</b> theo đúng hệ thống thiết kế trong tài liệu này để bạn xem trực tiếp trên trình duyệt, hoặc chuyển các đề xuất thành <b>file Figma</b> để đội thiết kế chỉnh sửa. Chỉ cần cho mình biết hướng bạn muốn.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="rep">
+  <div class="wrap">
+    <b style="font-size:15px">Báo cáo Phân tích &amp; Đề xuất nâng cấp giao diện — ATB Việt Nam</b>
+    <p style="margin-top:6px">Thực hiện theo khung design-critique &amp; WCAG 2.1 AA · Định hướng hiện đại &amp; chuyên nghiệp · 06/2026.</p>
+    <p style="margin-top:10px;font-size:13px;color:#6E839B">Nhận định dựa trên website đang vận hành thực tế tại thời điểm rà soát; một số hạng mục kỹ thuật (mobile, bản đồ, tốc độ tải) nên được kiểm thử lại trực tiếp khi triển khai.</p>
+  </div>
+</footer>
+
+</body>
+</html>
